@@ -39,11 +39,12 @@
               %a{href: about_url} Read more about Open Data Certificates
 
         = form_for [surveyor, :start, @response_set] do |f|
-          = f.label :documentation_url, 'Where is your data described?'
+          - question = @survey.questions.find_by_reference_identifier("documentationURL")
+          = f.label :documentation_url, question.text
 
           .row-fluid
             .span8
-              = f.url_field :documentation_url, class: 'string', placeholder: 'Documentation URL', value: @response_set.documentation_url
+              = f.url_field :documentation_url, class: 'string', placeholder: question.answers.first.text, value: @response_set.documentation_url
               .lead
                 :markdown
                   If your data is stored in a [CKAN](http://ckan.org/) repository (such as data.gov.uk), or marked up with
